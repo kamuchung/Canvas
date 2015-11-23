@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bounce [Canvas]</title>
+  </head>
+<body>
+  <section>
+    <div>
+        <canvas id="canvas" width="700" height="300"></canvas>
+    </div>
+
+<script type="text/javascript">
+var canvas,
+    context,
+    x = 400,
+    y = 300,
+    dx = 2,
+    dy = 4,
+    width = 400,
+    height = 600; 
+	
+	function makeTitle(){
+		var lines = [
+			
+			['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
+			['Is The Letter']
+		];
+		var title = '';
+		
+		for(var i=0; i<lines.length; i++){
+			var random = Math.floor(Math.random() * lines[i].length);
+			title += lines[i][random] + ' '
+		};
+		return(title);
+	}
+	
+	function drawText(canvas, context, title){
+		context.fillStyle = 'black';
+		context.font = 'bold 2em sans-serif';
+		context.textAlign = 'right';
+		context.fillText(title, canvas.width-400, canvas.height-40);
+	}
+	
+	
+	
+function drawCircle(r) {
+	var radius = Math.floor(Math.random() * 20);
+		var x2 = Math.floor(Math.random() * canvas.width);
+		var y2 = Math.floor(Math.random() * canvas.height);
+		
+  context.beginPath();
+  context.arc(x2, y2, radius, 0, degreesToRadians(360), true);
+  context.fill();
+  if (x + dx > width || x + dx < 0)
+    dx = -dx;
+  if (y + dy > height || y + dy < 0)
+    dy = -dy;
+  x += dx;
+  y += dy;
+}
+
+function drawSquare(){
+		var width = Math.floor(Math.random() * 40);
+		var x = Math.floor(Math.random() * canvas.width);
+		var y = Math.floor(Math.random() * canvas.height);
+		
+		context.beginPath();
+		context.rect(x, y, width, width);
+		context.fill();
+		if (x + dx > width || x + dx < 0)
+    dx = -dx;
+  if (y + dy > height || y + dy < 0)
+    dy = -dy;
+  x += dx;
+  y += dy;
+		
+	}
+	
+	function drawTri(canvas, context) {
+
+		var startx = Math.floor(Math.random() * canvas.height);
+		var starty = Math.floor(Math.random() * canvas.width);
+	
+		context.beginPath();
+		context.moveTo(startx, starty);
+		context.lineTo(startx + 25, starty + 25);
+		context.lineTo(startx + 25, starty - 25);
+		context.fill();
+		if (x + dx > width || x + dx < 0)
+    dx = -dx;
+  if (y + dy > height || y + dy < 0)
+    dy = -dy;
+  x += dx;
+  y += dy;
+		}
+
+	function drawHeart(canvas, context) {
+
+			var startx = Math.floor(Math.random() * canvas.height);
+			var starty = Math.floor(Math.random() * canvas.width);
+			
+			context.beginPath();
+			context.moveTo(startx,starty);
+			context.bezierCurveTo(37.5,18.5,35,12.5,25,12.5);
+			context.bezierCurveTo(10,12.5,10,31.125,10,31.125);
+			context.bezierCurveTo(10,starty,20,51,37.5,60);
+			context.bezierCurveTo(55,51,65,startx,65,31.125);
+			context.bezierCurveTo(65,31.125,65,12.5,50,12.5);
+			context.bezierCurveTo(42.5,12.5,37.5,18.5,37.5,20);
+			context.fill();
+	}
+
+function degreesToRadians(degrees){
+		return((degrees * Math.PI)/180);
+	}
+	
+function drawRect(x,y,w,h) {
+  context.beginPath();
+  context.rect(x,y,w,h);
+  context.closePath();
+  context.fill();
+}
+function start() {
+  canvas = document.getElementById("canvas");
+  context = canvas.getContext("2d");
+  return setInterval(draw, 45);
+}
+function draw() {
+  context.clearRect(0, 0, width, height);
+  context.fillStyle = "white";
+  drawRect(0,0, width, height);
+  context.fillStyle = "red";
+  drawCircle(10);
+  context.fillStyle = "blue";
+  drawSquare();
+  context.fillStyle = "yellow";
+  drawTri(canvas, context);
+  var title = makeTitle();
+  drawText(canvas, context, title);
+  context.fillStyle = "green";
+  drawHeart(canvas, context);
+  
+}
+window.onload = start;
+</script>
+
+  </section>
+</body>
+</html>
